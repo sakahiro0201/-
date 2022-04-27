@@ -153,6 +153,89 @@ bash
 conda env create –n 環境名 –f ymlファイル
 ```
 
+### 1-5.VPN接続の仕方
+
+| 呼称  |  説明  |
+| ---- | ---- |
+|  ローカル  | 加藤研究室にあるPCのこと  |
+|  GPU  |  GPUのこと(どの番号でもよい)  |
+| GPU4 | GPU4@10.226.47.14のこと |
+| 自宅PC | 自宅で使うPCのこと |
+
+1.　ローカルからroot権限でGPUに入る
+```
+ssh gpu25@10.226.47.35
+```
+2. 以下で`.ssh`フォルダの操作
+```
+//　.sshフォルダがあるかを確認
+ls -a
+
+// なかったら
+mkdir .ssh
+
+//あったり作ったりしたら入る
+cd .ssh
+
+//以下でカギを作成
+ssh-keygen -t rsa -b 4096
+
+//鍵が生成されたのを確認
+ls -a
+
+//公開鍵をコピーする
+cat id_rsa.pub >> authorized_keys
+
+//権限をそれぞれ変える
+chmod 600 authorized_keys
+chmod 700 ~/.ssh
+
+//一応authorized_keysがあるかを確認してから公開鍵を消す
+rm id_rsa.pub
+```
+
+3. ローカルのGUIでid_rsaをローカルの`.ssh`に転送
+4. 以下でGPUから別のGPUに接続できるのかを確認
+```
+ssh gpu25@10.226.47.35
+ssh -i id_rsa gpu40@10.226.47.50
+```
+
+5. `.ssh`内のconfigに以下のように記入
+```
+Host gpu*
+    User sakai
+    IdentityFile C:\Users\sakai\.ssh\id_rsa
+
+Host gpu4
+    HostName 10.226.47.14
+    port 2222
+```
+6. GPU4に入れることを確認
+```
+ssh gpu4
+```
+7. 自宅PCの`.ssh`にid_rsaとconfigを送る
+8. 自宅PC上でconfigのIdentityFileを自宅PCのid_rsaのパスにし、gpu4のHostnameを`133.66.226.47`にする
+9. 自宅PC上で[このリンク]()からVPN接続をする(ただし、岐阜大学のWiFiにつないでいると接続できない)
+10. GPU4に自宅PCからつなげるかを確認
+```
+//GPU4に入る
+ssh gpu4
+
+//GPU4に入れたらそこからQnapに接続
+ssh sakai@10.226.47.35 -p 34022
+
+//確認するとファイルがあるはず
+ls
+```
+
+[参考にしたサイト①](https://qiita.com/nnahito/items/dbe6fbfe347cd66ae7e6)
+
+[参考にしたサイト②](https://qiita.com/kazokmr/items/754169cfa996b24fcbf5)
+
+[VPN接続の文書]()
+
 ## 2.結果の保存と自動化
 
 ### 2-1.Tmuxについて
