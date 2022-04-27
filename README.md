@@ -217,7 +217,7 @@ ssh gpu4
 ```
 7. 自宅PCの`.ssh`にid_rsaとconfigを送る
 8. 自宅PC上でconfigのIdentityFileを自宅PCのid_rsaのパスにし、gpu4のHostnameを`133.66.226.47`にする
-9. 自宅PC上で[このリンク]()からVPN接続をする(ただし、岐阜大学のWiFiにつないでいると接続できない)
+9. 自宅PC上で[このリンク](https://github.com/sakahiro0201/-/blob/main/GU-VPN_manual_2016.pdf)からVPN接続をする(ただし、岐阜大学のWiFiにつないでいると接続できない)
 10. GPU4に自宅PCからつなげるかを確認
 ```
 //GPU4に入る
@@ -234,7 +234,7 @@ ls
 
 [参考にしたサイト②](https://qiita.com/kazokmr/items/754169cfa996b24fcbf5)
 
-[VPN接続の文書]()
+[VPN接続の文書](https://github.com/sakahiro0201/-/blob/main/GU-VPN_manual_2016.pdf)
 
 ## 2.結果の保存と自動化
 
