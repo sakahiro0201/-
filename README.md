@@ -28,6 +28,7 @@
 2. 稲垣先輩のデータをもとに`dockerfile`を作る
 3. `Windows PowerShell`を起動
 4. ファイルを作る。名前は何でも可。
+
 ```
 mkdir docker_setup_dir
 ```
