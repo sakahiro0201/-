@@ -237,6 +237,17 @@ ls
 
 [VPN接続の文書](https://github.com/sakahiro0201/-/blob/main/GU-VPN_manual_2016.pdf)
 
+### 1-6. Linux豆知識
+```
+//隠しファイル見方
+CTL + h
+
+//タスクマネージャを見たい
+gnome-system-monitor
+
+
+```
+
 ## 2.結果の保存と自動化
 
 ### 2-1.Tmuxについて
@@ -592,9 +603,20 @@ OpenCVとPyRepは同時にはうまく動かないので、別の仮想環境に
 
 ## 5. JetBot-megaについて
 
-### 5-0.各種パスワードなどについて
+### 5-0.各種パスワードや取扱説明書のリンク
+
+[JetBot-megaのwebサイト](https://www.vstone.co.jp/products/wheelrobot/megarover_dl/index.html)
+```
+初期のみサイトのログインにパスワードがいる
+ID      :   megaroverV2
+Pass    :   vstone
+```
+
+[Nvidiaの公式wiki](https://github.com/NVIDIA-AI-IOT/jetbot)
 
 jetbotのパスワード : jetbot
+
+[JetBot-megaの取扱説明書](https://github.com/sakahiro0201/-/blob/main/JetBot_Mega_Manual.pdf)
 
 ### 5-1.JetBot-megaの初期起動について
 
@@ -614,4 +636,80 @@ sudo python3 setup.py install
 
 sudo apt-get install rsync
 rsync -r jetbot-mega/notebooks ~/Notebooks
+```
+9. ここまで終わったらチュートリアルをとりあえずやってみよう
+
+### 5-2.カメラの色見調整
+```
+wget https://www.waveshare.com/w/upload/e/eb/Camera_overrides.tar.gz
+tar zxvf Camera_overrides.tar.gz 
+sudo cp camera_overrides.isp /var/nvidia/nvcam/settings/
+sudo chmod 664 /var/nvidia/nvcam/settings/camera_overrides.isp
+sudo chown root:root /var/nvidia/nvcam/settings/camera_overrides.isp
+```
+[参考にしたサイト](https://masato-ka.hatenablog.com/entry/2019/12/06/003829)
+
+### 5-3.sshの設定について
+```
+//Ubuntu側
+sudo apt install -y openssh-server
+
+//windows側
+ssh jetbot@192.168.1.86
+```
+
+### 5-4.pythonからカメラに接続できないときに読んでほしい
+1. imshowにはwaitKeyが必要!!
+2. ほかのプログラムがカメラ使ってるとダメ
+```
+//エラーコード
+execute:543 Failed to create CaptureSession
+
+//再起動させる
+sudo service nvargus-daemon restart
+```
+3. モジュールが足りない
+```
+//エラーコード
+Gtk-Message: 15:45:02.507: Failed to load module "canberra-gtk-module"
+
+//インストールする
+sudo apt-get install libcanberra-gtk*
+```
+4. displayの設定(imshowを使うとき)
+```
+//エラーコード
+Gtk-WARNING **: 15:31:29.497: cannot open display:
+
+//設定する
+export DISPLAY=:0.0 
+```
+5. pipでopencv入れちゃうとダメ!!
+```
+pip uninstall opencv-python
+```
+
+### 5-5.pygameをssh経由で使いたいとき
+```
+//エラーコード
+ File "joy_test.py", line 18, in joy_demo
+    for e in pygame.event.get():
+pygame.error: video system not initialized
+
+//これを最初に書けば大丈夫
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+```
+
+### 5-6.importできない時
+```
+//エラーコード
+Illegal instruction (core dumped)
+
+//これを実行前にうつ
+$ export OPENBLAS_CORETYPE=ARMV8
+```
+
+### 5-7.jupyterlabでpythonファイルを動かす
+```
+%run ○○○○.py
 ```
