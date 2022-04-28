@@ -588,3 +588,30 @@ OpenCVとPyRepは同時にはうまく動かないので、別の仮想環境に
    -pip install opencv-python-headless opencv-contrib-python
 2. Reciever側
    -pip install opencv-python opencv-contrib-python
+
+
+## 5. JetBot-megaについて
+
+### 5-0.各種パスワードなどについて
+
+jetbotのパスワード : jetbot
+
+### 5-1.JetBot-megaの初期起動について
+
+1. [Etcher](https://www.balena.io/etcher/)をダウンロードする
+2. [このリンク](https://github.com/NVIDIA-AI-IOT/jetbot/wiki/software-setup)よりOSをローカルに拾ってくる
+3. EtcherでzipファイルをSDカード上で展開
+4. 終わったらSDカードをJetBot-megaに差して、レバーで起動
+5. モニターとマウス、キーボードを差し込み、GUI上でWiFiにつなぐ
+6. WifiのIPアドレスをメモっておき、`http://(IPアドレスを入れる):8888`に検索エンジンで接続
+7. 接続出来たらとりあえずモニター、マウス、キーボードは外して置く
+8. gitからチュートリアルを持ってくる
+```
+//Nvidiaのモノではなくこちらにすること
+git clone https://github.com/vstoneofficial/jetbot-mega.git
+cd jetbot
+sudo python3 setup.py install
+
+sudo apt-get install rsync
+rsync -r jetbot-mega/notebooks ~/Notebooks
+```
