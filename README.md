@@ -1,7 +1,7 @@
 # さかひろ備忘録
-## 1.セットアップ関連
+# 1.セットアップ関連
 
-### 1-1.加藤研究室に入ってまず入れたもの
+## 1-1.加藤研究室に入ってまず入れたもの
 
 | 名前  |  リンク  |　備考 |
 | ---- | ---- | ---- |
@@ -11,7 +11,7 @@
 | git | [リンク](https://git-scm.com/) | 全てnextで可 |
 | その他 | | gmailのcv-allに入れてもらう |
 
-### 1-2.VScodeでanacondaを使う
+## 1-2.VScodeでanacondaを使う
 
 1. VScodeのメニューバーから`ファイル`>`ユーザー設定`>`設定`
 2. 検索で`Python conda`で検索すると`Python:Conda Path`が出てくる
@@ -22,7 +22,7 @@
   [参考になるサイト](https://blog.beachside.dev/entry/2017/12/25/000000)
 
 
-### 1-3.Dockerのsetupについて
+## 1-3.Dockerのsetupについて
 
 1. [git](https://git-scm.com/)のインストール。すべてnextで可
 2. 稲垣先輩のデータをもとに`dockerfile`を作る
@@ -128,7 +128,7 @@ ssh gpu25
 ```
 
 
-### 1-4.GPUにcondaの環境を作る
+## 1-4.GPUにcondaの環境を作る
 1. コピーしたい`conda`の環境の名前を入れて
 
 ```
@@ -154,7 +154,7 @@ bash
 conda env create –n 環境名 –f ymlファイル
 ```
 
-### 1-5.VPN接続の仕方
+## 1-5.VPN接続の仕方
 
 | 呼称  |  説明  |
 | ---- | ---- |
@@ -237,7 +237,35 @@ ls
 
 [VPN接続の文書](https://github.com/sakahiro0201/-/blob/main/GU-VPN_manual_2016.pdf)
 
-### 1-6. Linux豆知識
+## 1-6.トラブルシューティング
+
+```
+//エラーコード
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:Yi2FoVzTTLQo0JQWfijOARBorzMWHLkF50Y0sqHgOvM.
+Please contact your system administrator.
+Add correct host key in C:\\Users\\oshit/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in C:\\Users\\oshit/.ssh/known_hosts:18
+ECDSA host key for [10.226.47.70]:31022 has changed and you have requested strict checking.
+Host key verification failed.
+(base) PS C:\Users\oshit> ssh gpu60
+The authenticity of host '[10.226.47.70]:31022 ([10.226.47.70]:31022)' can't be established.
+ECDSA key fingerprint is SHA256:Yi2FoVzTTLQo0JQWfijOARBorzMWHLkF50Y0sqHgOvM.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[10.226.47.70]:31022' (ECDSA) to the list of known hosts.
+
+//解決法
+.ssh　>　known_host　のエラーの出たIPアドレスの行を削除
+
+```
+
+## 1-7. Linux豆知識
 ```
 //隠しファイル見方
 CTL + h
@@ -255,9 +283,9 @@ chmod 777 filepath
 
 ```
 
-## 2.結果の保存と自動化
+# 2.結果の保存と自動化
 
-### 2-1.Tmuxについて
+## 2-1.Tmuxについて
 
 Tmux上で動かさないとスリープすると落ちる。
 
@@ -271,7 +299,7 @@ tmux -t セッション名          セッションに戻る
 
 [チートシート](https://qiita.com/nmrmsys/items/03f97f5eabec18a3a18b)
 
-### 2-2.Argparseでymlファイルから参照する
+## 2-2.Argparseでymlファイルから参照する
 
 使うときには`import yaml`及び`import argparse`でインポート
 
@@ -338,7 +366,7 @@ yf.close
 
 [参考にしたサイト](https://rightcode.co.jp/blog/information-technology/pytorch-yaml-optimizer-parameter-management-simple-method-preparation)
 
-### 2-3.Loggingでテキストを残す
+## 2-3.Loggingでテキストを残す
 
 使うときには`import logging`でインポート
 
@@ -353,7 +381,7 @@ logging.debug(config)
 
 [参考にしたサイト](https://symfoware.blog.fc2.com/blog-entry-883.html)
 
-### 2-4.TensorBoardについて
+## 2-4.TensorBoardについて
 
 使うときは`from torch.utils.tensorboard import SummaryWriter`でインポート
 
@@ -373,14 +401,14 @@ writer.close
 
 [参考にしたサイト②](https://www.oio-blog.com/contents/tensorboard)
 
-### 2-5.Graphviz→pytorchviz(使わなかった)
+## 2-5.Graphviz→pytorchviz(使わなかった)
 
 1. [AnacondaにGraphVizを導入](https://qiita.com/pyg50/items/eeae7c51e23d8a036bf1)
 2. [PytorchvizをGithubから導入](https://github.com/szagoruyko/pytorchviz)
 
 [実際に使っているサイト](https://gurutaka-log.com/pytorch-torchviz-visualize)
 
-### 2-6.シェルスクリプトを使ったMulti Runのやり方
+## 2-6.シェルスクリプトを使ったMulti Runのやり方
 
 `ShellScript`の実行は`bash ~~.sh`
 
@@ -398,7 +426,7 @@ done
 
 [参考にしたサイト②](https://masaeng.hatenablog.com/entry/2019/08/13/232015)
 
-### 2-7.スクリプト上でディレクトリなければ作って実行
+## 2-7.スクリプト上でディレクトリなければ作って実行
 
 使うときは`import os`でインポート
 
@@ -410,7 +438,7 @@ if os.path.exists(path+config['configname']+str(num)) ==False:
 
 [参考にしたサイト](https://note.com/yokkai/n/nc50c5860d914)
 
-### 2-8.Matplotlibの図を保存
+## 2-8.Matplotlibの図を保存
 
 使うときは`import matplotlib as plot`でインポート
 
@@ -442,9 +470,9 @@ plt.savefig("TrainOutput/Loss.png")
 
 [参考にしたサイト](https://techacademy.jp/magazine/22285)
 
-## 3.チューニング発表1/12
+# 3.チューニング発表1/12
 
-### 3-1.参考になった論文
+## 3-1.参考になった論文
 
 [深層学習を用いた画像識別タスクの精度向上テクニック](https://www.guruguru.science/competitions/17/discussions/4864ee81-6336-4cad-bb74-a4c9b46e6eb2/)
 
@@ -467,7 +495,7 @@ STEPLR以外については[こちら](https://katsura-jp.hatenablog.com/entry/2
 
 ただし表示はscheduler.get_last_lr()[0]がよい
 
-### 3-2.過学習対策
+## 3-2.過学習対策
 
 [過学習について①](https://data-viz-lab.com/overfitting)
 
@@ -477,7 +505,7 @@ STEPLR以外については[こちら](https://katsura-jp.hatenablog.com/entry/2
 
 対策2. [ドロップアウト](https://sonickun.hatenablog.com/entry/2016/07/18/191656)
 
-### 3-3.最適化関数について
+## 3-3.最適化関数について
 
 使うときは`import torch.optim as optim`でインポート
 
@@ -505,7 +533,7 @@ optimizer = make_optimizer(model.parameters(),**config['optimizer'])
 
 [参考にしたサイト](https://rightcode.co.jp/blog/information-technology/torch-optim-optimizer-compare-and-verify-update-process-and-performance-of-optimization-methods)
 
-### 3-4.cifer10で使えるModel
+## 3-4.cifer10で使えるModel
 
 この[サイト](https://github.com/kuangliu/pytorch-cifar)から拝借
 
@@ -520,43 +548,43 @@ a = TmpName()
 
 [実装方法](https://testpy.hatenablog.com/entry/2020/01/12/171347)
 
-### 3-5.TTAの導入
+## 3-5.TTAの導入
 
 [TTAch](https://github.com/qubvel/ttach#transforms)の実装
 
 [使っている例](https://qiita.com/cfiken/items/7cbf63357c7374f43372https://www.guruguru.science/competitions/17/discussions/4864ee81-6336-4cad-bb74-a4c9b46e6eb2/)
 
-### 3-6.正則化について
+## 3-6.正則化について
 
 [参考にしたサイト](https://qiita.com/cfiken/items/7cbf63357c7374f43372)
 
 [最適化関数と正則化](https://acro-engineer.hatenablog.com/entry/2019/12/25/130000#AdamW)
 
-### 3-7.データ拡張について
+## 3-7.データ拡張について
 
 [参考にしたサイト](https://pystyle.info/pytorch-list-of-transforms/)
 
 [精度比較ありのサイト](https://qiita.com/enbi/items/f84d253b79184c903c27)
 
-## 4.最終発表3/17
+# 4.最終発表3/17
 
-### 4-1.LynuxのUSB Boot
+## 4-1.LynuxのUSB Boot
 
 [参考にしたサイト](https://demura.net/education/lecture/20509.html)
 
 USBとSSD両方が必要！！
 
-### 4-2.CoppeliaSimのインストール
+## 4-2.CoppeliaSimのインストール
 
 [リンク](https://coppeliarobotics.com/downloads) - Edu版にすること
 
-### 4-3.CoppeliaSimのチュートリアル
+## 4-3.CoppeliaSimのチュートリアル
 
 [チュートリアル](https://www.coppeliarobotics.com/helpFiles/index.html)
 
 特に[BubbleRob](https://www.coppeliarobotics.com/helpFiles/en/bubbleRobTutorial.htm)は操作をほぼすべて行うのでやること
 
-### 4-4.CoppeliaSimのRemoteAPI
+## 4-4.CoppeliaSimのRemoteAPI
 
 Pythonのスクリプトを動かすための
 
@@ -568,13 +596,13 @@ Pythonのスクリプトを動かすための
 
 遅いので後述のPyRepで行ったほうが良い
 
-### 4-5.Pygameについて
+## 4-5.Pygameについて
 
 コントローラーの入力を得るため[Pygame](https://qiita.com/suo-takefumi/items/c9c4b23ea74a56d7e901)を使う
 
 ただし、インストールはpipを使った(あんまりよくない)
 
-### 4-6.タイヤの運動方程式(対軸2輪ロボット)
+## 4-6.タイヤの運動方程式(対軸2輪ロボット)
 
 [参考にしたサイト](https://www.mech.tohoku-gakuin.ac.jp/rde/contents/course/robotics/wheelrobot.html)
 
@@ -585,13 +613,13 @@ Pythonのスクリプトを動かすための
 - v:自分で決める
 - d:ロボットによって異なる
 
-### 4-7.PyRepについて
+## 4-7.PyRepについて
 
 [PyRep](https://github.com/stepjam/PyRep)
 
 [PyRepの各種関数](https://pyrep.readthedocs.io/en/latest/)
 
-### 4-8.OpenCV
+## 4-8.OpenCV
 
 OpenCVのインストール
 ```
@@ -600,7 +628,7 @@ pip install opencv-python opencv-contrib-python
 
 OpenCVとPyRepは同時にはうまく動かないので、別の仮想環境にUDPで画像を飛ばしてから使うこと
 
-### 4-9.UDPについて
+## 4-9.UDPについて
 
 1. Sender側
    -pip install opencv-python-headless opencv-contrib-python
@@ -608,9 +636,9 @@ OpenCVとPyRepは同時にはうまく動かないので、別の仮想環境に
    -pip install opencv-python opencv-contrib-python
 
 
-## 5. JetBot-megaについて
+# 5. JetBot-megaについて
 
-### 5-0.各種パスワードや取扱説明書のリンク
+## 5-0.各種パスワードや取扱説明書のリンク
 
 [JetBot-megaのwebサイト](https://www.vstone.co.jp/products/wheelrobot/megarover_dl/index.html)
 ```
@@ -625,7 +653,7 @@ jetbotのパスワード : jetbot
 
 [JetBot-megaの取扱説明書](https://github.com/sakahiro0201/-/blob/main/JetBot_Mega_Manual.pdf)
 
-### 5-1.JetBot-megaの初期起動について
+## 5-1.JetBot-megaの初期起動について
 
 1. [Etcher](https://www.balena.io/etcher/)をダウンロードする
 2. [このリンク](https://github.com/NVIDIA-AI-IOT/jetbot/wiki/software-setup)よりOSをローカルに拾ってくる
@@ -646,7 +674,7 @@ rsync -r jetbot-mega/notebooks ~/Notebooks
 ```
 9. ここまで終わったらチュートリアルをとりあえずやってみよう
 
-### 5-2.カメラの色見調整
+## 5-2.カメラの色見調整
 ```
 wget https://www.waveshare.com/w/upload/e/eb/Camera_overrides.tar.gz
 tar zxvf Camera_overrides.tar.gz 
@@ -656,7 +684,7 @@ sudo chown root:root /var/nvidia/nvcam/settings/camera_overrides.isp
 ```
 [参考にしたサイト](https://masato-ka.hatenablog.com/entry/2019/12/06/003829)
 
-### 5-3.sshの設定について
+## 5-3.sshの設定について
 ```
 //Ubuntu側
 sudo apt install -y openssh-server
@@ -665,7 +693,7 @@ sudo apt install -y openssh-server
 ssh jetbot@192.168.1.86
 ```
 
-### 5-4.pythonからカメラに接続できないときに読んでほしい
+## 5-4.pythonからカメラに接続できないときに読んでほしい
 1. imshowにはwaitKeyが必要!!
 2. ほかのプログラムがカメラ使ってるとダメ
 ```
@@ -696,7 +724,7 @@ export DISPLAY=:0.0
 pip uninstall opencv-python
 ```
 
-### 5-5.pygameをssh経由で使いたいとき
+## 5-5.pygameをssh経由で使いたいとき
 ```
 //エラーコード
  File "joy_test.py", line 18, in joy_demo
@@ -707,7 +735,7 @@ pygame.error: video system not initialized
 os.environ["SDL_VIDEODRIVER"] = "dummy"
 ```
 
-### 5-6.importできない時
+## 5-6.importできない時
 ```
 //エラーコード
 Illegal instruction (core dumped)
@@ -716,7 +744,7 @@ Illegal instruction (core dumped)
 $ export OPENBLAS_CORETYPE=ARMV8
 ```
 
-### 5-7.jupyterlabでpythonファイルを動かす
+## 5-7.jupyterlabでpythonファイルを動かす
 ```
 %run ○○○○.py
 ```
