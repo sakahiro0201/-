@@ -748,3 +748,16 @@ $ export OPENBLAS_CORETYPE=ARMV8
 ```
 %run ○○○○.py
 ```
+
+## 5-8.jetpackをSDKmanagerでjetbotに入れる
+
+1. ホストPC(ubuntu18.04)に[NvidiaSDKmanager](https://developer.nvidia.com/nvidia-sdk-manager)を入れる
+```
+//20.04の場合はterminalにて
+sudo vi /etc/os-release
+
+//Versionを18.04に偽装
+VERSION_ID="18.04"
+```
+2. PCにJetbotをつなぐ
+3. SDKManagerにまかせてダウンロード
