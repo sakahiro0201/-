@@ -263,6 +263,47 @@ Warning: Permanently added '[10.226.47.70]:31022' (ECDSA) to the list of known h
 //解決法
 .ssh　>　known_host　のエラーの出たIPアドレスの行を削除
 
+
+ImportError対応の一例 : ~PATH編~ specialthanks:中村先輩
+事例：libstdc++.so.6が必要、インストール。しかし実行時にインストール前と同一のエラー。以下は実際の例
+ImportError: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /opt/miniconda3/envs/develop/lib/python3.9/site-packages/scipy/linalg/_matfuncs_sqrtm_triu.cpython-39-x86_64-linux-gnu.so)
+注目していただきたいのは、最初の/usr/lib/x86_64-linux.....の部分。
+当人は/opt/miniconda3/envs/自分の仮想環境/lib/にlibstdc++.so.6をインストールしたが参照先のパスであるLD_LIBRARY_PATHにはインストール先の場所が登録されていない。以下、パスを確認するコマンドprintenvによる確認。
+CONDA_SHLVL=2
+LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:　　*****ここにパスを追加すればいい！！！！*****
+CONDA_EXE=/opt/miniconda3/bin/conda
+SSH_CONNECTION=10.226.47.191 57651 172.20.0.2 22
+LANG=en_US.UTF-8
+***以下略
+追加の仕方
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/miniconda3/envs/develop/lib/(尾下の場合なので:以下を適宜変更)
+printenv
+これで追加できた
+(develop) oshita@oshita:~/cleansing/FINE_official/dynamic_selection$ printenv
+CONDA_SHLVL=2
+LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64::/opt/miniconda3/envs/develop/lib/
+CONDA_EXE=/opt/miniconda3/bin/conda
+SSH_CONNECTION=10.226.47.191 57651 172.20.0.2 22
+LANG=en_US.UTF-8
+OLDPWD=/home/oshita/cleansing/FINE_official
+......
+
+
+GPUバージョン問題　
+以下のエラーの対処法
+GeForce RTX 3090 with CUDA capability sm_86 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.　＜ーーここが重要！！！
+If you want to use the GeForce RTX 3090 GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+これが出た時の対処法
+torch.cuda.get_arch_list()　
+上記のコマンドで現在のpytorchに対応しているCUDAに関する情報が出る。以下は実際の例
+['sm_37', 'sm_50', 'sm_60', 'sm_61', 'sm_70', 'sm_75', 'compute_37']
+今のGPUのCUDAバージョン(nvidia-smiに出るやつ)はsm_86でこれはpytorchが対応していない。
+実際に以下のコマンドで確認
+torch.cuda.version
+結果：'10.2'
+nvidia-smiで出てくるCUDAのバージョンとtorch.cuda.versionで出てくるものどちらを信用したらいいのか不明。しかし今回の場合はインストール時のCUDAを10.2にすることで対応できた。有識者は追記を求む
+
 ```
 
 ## 1-7. Linux豆知識
