@@ -304,6 +304,19 @@ torch.cuda.version
 結果：'10.2'
 nvidia-smiで出てくるCUDAのバージョンとtorch.cuda.versionで出てくるものどちらを信用したらいいのか不明。しかし今回の場合はインストール時のCUDAを10.2にすることで対応できた。有識者は追記を求む
 
+
+環境問題その２
+ライブラリとかパッケージのバージョンを更新しているのに確認しても変わっていないとき。
+実例：
+RuntimeError: CUDA error: no kernel image is available for execution on the device
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.
+このエラー自体はcudaに関係なくても起こることがある。例えば、テンソルのshapeがあっていないなど。
+しかし、見直してもわからない場合 sys.path を確認するといい。conda環境なのにそこにminiconda以外のパスが通っていたらそれが原因。そのパスを使っていないなら削除
+なぜこうなったのか...
+以前、pip環境をqnapで直下に入れたことが原因だった。環境自体は消してもパスが残っていたため。ルート権限でインストールするとユーザー直下にそのデータが残り、子ユーザが使用するものと同一ライブラリであった場合、パスが上書きされる。
+つまり、pipとcondaは分けましょう。qnapに直接環境は作らないようにしましょう
+
 ```
 
 ## 1-7. Linux豆知識
